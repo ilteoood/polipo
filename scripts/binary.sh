@@ -12,7 +12,7 @@ case $1 in
     export VARIANT=aarch64-unknown-linux-musl
     ;;
 
-  **)
+  *)
     export VARIANT=i686-unknown-linux-musl
     ;;
 esac
