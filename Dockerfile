@@ -18,7 +18,6 @@ ENV SMTP_PASSWORD=your-app-password
 
 ENV CRON_SCHEDULE="0 9 * * *"
 
-ENV RUST_LOG=info
 
 ENV CACHE_FILE_PATH=./cache.json
 
