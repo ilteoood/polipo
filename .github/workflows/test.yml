@@ -23,6 +23,9 @@ jobs:
       - name: Cache dependencies
         uses: Swatinem/rust-cache@v2
 
+      - name: Install cargo tools
+        run: rustup component add --toolchain stable-x86_64-unknown-linux-gnu rustfmt clippy
+
       - name: Check formatting
         run: cargo fmt --all -- --check
 
