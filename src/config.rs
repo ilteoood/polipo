@@ -244,8 +244,8 @@ mod tests {
             let mut guard = setup_valid_env();
             guard.set("SMTP_PORT", port_str);
 
-            let config =
-                Config::from_env().expect(&format!("Config should load with port {}", port_str));
+            let config = Config::from_env()
+                .unwrap_or_else(|_| panic!("Config should load with port {}", port_str));
 
             assert_eq!(config.smtp_port, expected_port);
         }
