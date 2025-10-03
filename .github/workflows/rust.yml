@@ -23,7 +23,7 @@ jobs:
         with:
           command: both
           target: ${{ matrix.platform.target }}
-          args: "--locked --release"
+          args: "--release"
           strip: true
         env:
           CROSS_CONTAINER_OPTS: "-v /var/run/docker.sock:/var/run/docker.sock"
