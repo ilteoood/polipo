@@ -17,4 +17,4 @@ case $1 in
     ;;
 esac
 
-mv ./polipo-${VARIANT} ./polipo
+mv ./polipo-${VARIANT}/polipo ./polipo

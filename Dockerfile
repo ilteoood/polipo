@@ -2,10 +2,13 @@ FROM alpine:latest AS builder
 ARG TARGETARCH
 WORKDIR /builder
 COPY . .
-RUN ./scripts/binary.sh $TARGETARCH
+RUN ./scripts/binary.sh $TARGETARCH && \
+    echo "nobody:x:65534:65534:Nobody:/:" > /etc_passwd
 
 FROM scratch
 COPY --from=builder --chmod=755 /builder/polipo polipo
+COPY --from=builder /etc_passwd /etc/passwd
+USER nobody
 
 ENV RUST_LOG=info
 ENV OCTOPUS_EMAIL=your-email@example.com
