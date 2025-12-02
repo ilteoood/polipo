@@ -4,20 +4,20 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-reqwest = { version = "0.12.23", features = ["json", "cookies"] }
-tokio = { version = "1.47.1", features = ["full"] }
-serde = { version = "1.0.225", features = ["derive"] }
+reqwest = { version = "0.12.24", features = ["json", "cookies"] }
+tokio = { version = "1.48.0", features = ["full"] }
+serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.145"
 scraper = "0.24.0"
-regex = "1.11.2"
-lettre = "0.11.18"
+regex = "1.12.2"
+lettre = "0.11.19"
 cron = "0.15.0"
-anyhow = "1.0.99"
-thiserror = "2.0.16"
+anyhow = "1.0.100"
+thiserror = "2.0.17"
 log = "0.4.28"
 env_logger = "0.11.8"
 chrono = { version = "0.4.42", features = ["serde"] }
-openssl = { version = "0.10.73", features = ["vendored"] }
+openssl = { version = "0.10.75", features = ["vendored"] }
 
 [dev-dependencies]
-tempfile = "3.15.0"
+tempfile = "3.23.0"
