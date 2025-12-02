@@ -2,19 +2,16 @@ pub mod cache;
 pub mod config;
 pub mod email;
 pub mod octopus;
-pub mod scheduler;
 
-use anyhow::{Context, Result};
+use anyhow::Result;
 use chrono::Utc;
-use log::{error, info};
-use tokio::time::sleep;
+use log::info;
 
 use crate::cache::{OfferCache, UtilityType};
 use crate::config::Config;
 use crate::email::EmailService;
 use crate::octopus::client::OctopusClient;
 use crate::octopus::models::{Product, SupplyPoint, Viewer};
-use crate::scheduler::parse_cron_interval;
 
 /// Main application structure
 pub struct PolipoApp {
@@ -148,7 +145,7 @@ impl PolipoApp {
     }
 
     /// Main execution flow
-    async fn run_check(&mut self) -> Result<()> {
+    pub async fn run_check(&mut self) -> Result<()> {
         info!("Starting Polipo tariff check at {}", Utc::now());
 
         let access_token = self.octopus_client.login().await?;
@@ -159,27 +156,5 @@ impl PolipoApp {
 
         info!("Polipo tariff check completed successfully");
         Ok(())
-    }
-
-    /// Run the application with cron scheduling
-    pub async fn run_with_schedule(&mut self) -> Result<()> {
-        info!(
-            "Polipo configured with cron schedule: {}",
-            self.config.cron_schedule
-        );
-
-        loop {
-            // Parse cron schedule for next run
-            let interval = parse_cron_interval(&self.config.cron_schedule)
-                .context("Failed to parse cron schedule")?;
-
-            info!("Next check scheduled in {:?}", interval);
-            sleep(interval).await;
-
-            match self.run_check().await {
-                Ok(_) => info!("Check completed successfully"),
-                Err(e) => error!("Check failed: {}", e),
-            }
-        }
     }
 }
